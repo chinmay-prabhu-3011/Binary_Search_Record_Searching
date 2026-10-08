@@ -2,7 +2,6 @@
 
 #define MAX 100
 
-/* Utility: Bubble Sort if input is unsorted */
 void bubbleSort(int a[], int n) {
     int i, j, temp;
     for (i = 0; i < n - 1; i++) {
@@ -15,8 +14,6 @@ void bubbleSort(int a[], int n) {
         }
     }
 }
-
-/* Check whether array is sorted */
 int isSorted(int a[], int n) {
     int i;
     for (i = 0; i < n - 1; i++) {
@@ -26,7 +23,6 @@ int isSorted(int a[], int n) {
     return 1;
 }
 
-/* Linear Search */
 int linearSearch(int a[], int n, int key, int *comparisons) {
     int i;
     *comparisons = 0;
@@ -39,7 +35,6 @@ int linearSearch(int a[], int n, int key, int *comparisons) {
     return -1;
 }
 
-/* Iterative Binary Search (Returns First Occurrence) */
 int binarySearchIterative(int a[], int n, int key, int *comparisons) {
     int low = 0, high = n - 1, mid;
     int result = -1;
@@ -51,7 +46,7 @@ int binarySearchIterative(int a[], int n, int key, int *comparisons) {
 
         (*comparisons)++;
         if (a[mid] == key) {
-            result = mid;     /* Record match, continue searching left for first occurrence */
+            result = mid;
             high = mid - 1;
         } else if (a[mid] < key) {
             low = mid + 1;
@@ -62,7 +57,6 @@ int binarySearchIterative(int a[], int n, int key, int *comparisons) {
     return result;
 }
 
-/* Recursive Binary Search (Returns First Occurrence) */
 int binarySearchRecursive(int a[], int low, int high, int key, int *comparisons) {
     int mid;
 
@@ -76,7 +70,7 @@ int binarySearchRecursive(int a[], int low, int high, int key, int *comparisons)
     if (a[mid] == key) {
         if (mid == 0) return mid;
         
-        (*comparisons)++; /* Count comparison for checking duplicate on the left */
+        (*comparisons)++; 
         if (a[mid - 1] != key) {
             return mid;
         }
@@ -88,7 +82,6 @@ int binarySearchRecursive(int a[], int low, int high, int key, int *comparisons)
     }
 }
 
-/* Display array */
 void display(int a[], int n) {
     int i;
     printf("\nRecords: ");
@@ -100,7 +93,6 @@ void display(int a[], int n) {
 int main() {
     int a[MAX];
     int n, i, choice, key, result, comparisons;
-
     printf("Enter number of records: ");
     fflush(stdout);
     if (scanf("%d", &n) != 1 || n <= 0 || n > MAX) {
@@ -115,7 +107,6 @@ int main() {
         scanf("%d", &a[i]);
     }
 
-    /* Check and enforce sorted condition */
     if (!isSorted(a, n)) {
         printf("\n[Validation] Records were NOT sorted. Automatically sorting using Bubble Sort...\n");
         bubbleSort(a, n);
@@ -124,14 +115,13 @@ int main() {
     }
 
     do {
-        printf("\n========== MENU ==========\n");
-        printf("1. Display Records\n");
+        printf("\n1. Display Records\n");
         printf("2. Iterative Binary Search\n");
         printf("3. Recursive Binary Search\n");
         printf("4. Linear Search\n");
         printf("5. Exit\n");
-        printf("===========================\n");
-        printf("Enter your choice: ");
+
+        printf("\nEnter your choice: ");
         fflush(stdout);
         
         if (scanf("%d", &choice) != 1) break;
@@ -145,7 +135,7 @@ int main() {
                 printf("Enter value to search: ");
                 fflush(stdout);
                 scanf("%d", &key);
-                printf("\n--- Iterative Binary Search ---\n");
+                printf("\nIterative Binary Search \n");
                 result = binarySearchIterative(a, n, key, &comparisons);
                 if (result != -1)
                     printf("Result: Found at index %d (Value = %d)\n", result, a[result]);
@@ -159,7 +149,7 @@ int main() {
                 fflush(stdout);
                 scanf("%d", &key);
                 comparisons = 0;
-                printf("\n--- Recursive Binary Search ---\n");
+                printf("\nRecursive Binary Search\n");
                 result = binarySearchRecursive(a, 0, n - 1, key, &comparisons);
                 if (result != -1)
                     printf("Result: Found at index %d (Value = %d)\n", result, a[result]);
@@ -172,7 +162,7 @@ int main() {
                 printf("Enter value to search: ");
                 fflush(stdout);
                 scanf("%d", &key);
-                printf("\n--- Linear Search ---\n");
+                printf("\nLinear Search\n");
                 result = linearSearch(a, n, key, &comparisons);
                 if (result != -1)
                     printf("Result: Found at index %d (Value = %d)\n", result, a[result]);
